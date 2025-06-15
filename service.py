@@ -4,16 +4,14 @@ import os
 import subprocess
 import threading
 from datetime import datetime
-from io import BytesIO
-import numpy as np
+
 import librosa
-import requests
-import soundfile as sf
+import numpy as np
 import torch
 
 from model import load_model
 
-AUDIO_URL = "https://radio.kotah.ru/soundcheck"
+AUDIO_URL = "https://radio.kotah.ru/exam"
 timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 OUTPUT_FILE = f"output/stream_record_{timestamp}.wav"
 SAMPLE_RATE = 16000
@@ -48,7 +46,7 @@ model = load_model("weights/best_weights.pth")
 model.to(DEVICE)
 
 
-def record_stream(audio_url=AUDIO_URL, output_file=OUTPUT_FILE, duration=3600):
+def record_stream(audio_url=AUDIO_URL, output_file=OUTPUT_FILE, duration=10800):
     """Запись потока в файл .wav"""
     record_logger.info("Начинается запись потока...")
     os.makedirs(os.path.dirname(output_file), exist_ok=True)
